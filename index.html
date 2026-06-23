@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HagoCube | 디지털 생산성 아키텍트</title>
+    <meta name="description" content="복잡한 기술을 가장 쉬운 언어로 해체하고 전달하는 디지털 생산성 가이드 플랫폼, HagoCube입니다.">
+    <meta property="og:title" content="HagoCube | 디지털 생산성 아키텍트">
+    <meta property="og:description" content="복잡한 일상을 효율적인 시스템으로 바꾸는 공간.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root { --main-color: #1e293b; --sub-color: #d97706; }
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: #f8fafc; color: #334155; }
+        .text-main { color: var(--main-color); }
+        .bg-main { background-color: var(--main-color); }
+        .text-sub { color: var(--sub-color); }
+        .bg-sub { background-color: var(--sub-color); }
+        .hover-sub:hover { color: var(--sub-color); }
+        nav a { transition: color 0.2s; }
+        .card { transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="bg-main text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#/" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                <span class="text-sub text-3xl">⬡</span> HagoCube
+            </a>
+            <nav class="hidden md:flex gap-6 font-medium">
+                <a href="#/category/workspace" class="hover:text-yellow-400">워크스페이스</a>
+                <a href="#/category/automation" class="hover:text-yellow-400">자동화툴킷</a>
+                <a href="#/author" class="hover:text-yellow-400">운영자 칼럼</a>
+                <a href="#/about" class="hover:text-yellow-400">소개</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app" class="flex-grow container mx-auto px-4 py-8">
+        </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-8 text-sm mt-auto">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="text-white font-bold mb-2">HagoCube</p>
+                <p>복잡한 기술을 해체하는 디지털 아키텍트</p>
+                <p>문의: support@hagocube.com</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="#/privacy" class="hover:text-white">개인정보처리방침</a>
+                <a href="#/terms" class="hover:text-white">이용약관</a>
+                <a href="#/disclaimer" class="hover:text-white">면책고지</a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-6 text-center border-t border-gray-700 pt-6">
+            &copy; <span id="year"></span> HagoCube. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const App = {
+            init() {
+                window.addEventListener('hashchange', this.router.bind(this));
+                this.router();
+            },
+            router() {
+                const hash = window.location.hash || '#/';
+                const mainArea = document.getElementById('app');
+                mainArea.innerHTML = ''; // 초기화
+                window.scrollTo(0, 0);
+
+                if (hash === '#/') this.renderHome(mainArea);
+                else if (hash.startsWith('#/post/')) this.renderPost(mainArea, hash.replace('#/post/', ''));
+                else if (hash.startsWith('#/category/')) this.renderCategory(mainArea, hash.replace('#/category/', ''));
+                else if (hash === '#/author') this.renderAuthor(mainArea);
+                else if (['#/privacy', '#/terms', '#/disclaimer', '#/about'].includes(hash)) this.renderPage(mainArea, hash.replace('#/', ''));
+                else mainArea.innerHTML = '<div class="text-center py-20"><h2 class="text-3xl font-bold">404 - 문서를 찾을 수 없습니다.</h2></div>';
+            },
+            
+            renderHome(container) {
+                let html = `
+                    <div class="text-center py-12 bg-white rounded-lg shadow-sm mb-8 border border-gray-100">
+                        <h1 class="text-4xl font-extrabold text-main mb-4">효율적인 삶을 위한 디지털 큐브</h1>
+                        <p class="text-lg text-gray-600 max-w-2xl mx-auto">HagoCube는 노션, 구글 워크스페이스, AI 툴 등 일상의 복잡성을 줄여주는 생산성 가이드를 제공합니다.</p>
+                    </div>
+                    <div class="flex justify-between items-end border-b-2 border-gray-200 pb-2 mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">최신 인사이트</h2>
+                        <a href="#/author" class="text-sm font-bold text-sub hover:underline">Hago Curator 칼럼 보기 &rarr;</a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                `;
+                // 최신순 6개 글 노출
+                const recentPosts = [...siteData.posts].reverse().slice(0, 6);
+                recentPosts.forEach(post => {
+                    html += `
+                        <a href="#/post/${post.slug}" class="card bg-white rounded-lg overflow-hidden border border-gray-200 block">
+                            <div class="p-6">
+                                <span class="badge bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded mb-3 inline-block">${post.category}</span>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">${post.title}</h3>
+                                <p class="text-gray-600 text-sm mb-4 line-clamp-3">${post.summary}</p>
+                                <div class="text-xs text-gray-400 flex justify-between">
+                                    <span>${post.date}</span>
+                                    <span>${post.author}</span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+            },
+
+            renderPost(container, slug) {
+                const post = siteData.posts.find(p => p.slug === slug);
+                if(!post) { this.router(); return; } // 없는 글은 홈으로
+                
+                document.title = `${post.title} - HagoCube`; // SEO 타이틀 변경
+                
+                container.innerHTML = `
+                    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="bg-gray-50 border-b border-gray-100 p-8 text-center">
+                            <div class="mb-4">
+                                <a href="#/category/${post.categoryId}" class="text-sm font-bold text-sub tracking-widest uppercase hover:underline">${post.category}</a>
+                            </div>
+                            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">${post.title}</h1>
+                            <p class="text-gray-500 font-medium">${post.summary}</p>
+                            <div class="mt-6 text-sm text-gray-400 flex items-center justify-center gap-4">
+                                <span>작성일: ${post.date}</span> | 
+                                <a href="#/author" class="hover:text-sub font-bold text-gray-600">✍️ 에디터: ${post.author}</a>
+                            </div>
+                        </div>
+                        <div class="p-8 md:p-12 prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                            ${post.content.replace(/\n/g, '<br/>')}
+                        </div>
+                        <div class="bg-gray-50 p-6 border-t border-gray-100">
+                            <h3 class="font-bold text-gray-800 mb-2">💡 HagoCube 편집 원칙</h3>
+                            <p class="text-sm text-gray-600">본 콘텐츠는 초보자도 쉽게 이해할 수 있도록 실제 구동 환경을 바탕으로 검증되어 작성되었습니다. YMYL(건강, 재무 등) 민감 정보는 다루지 않으며, 일반적인 생산성 향상 목적으로만 제공됩니다.</p>
+                        </div>
+                    </div>
+                `;
+            },
+            
+            renderAuthor(container) {
+                let html = `
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-main text-white rounded-lg p-8 mb-8 flex flex-col md:flex-row items-center gap-6">
+                            <div class="w-24 h-24 bg-sub rounded-full flex items-center justify-center text-4xl font-bold shadow-lg">H</div>
+                            <div>
+                                <h1 class="text-3xl font-bold mb-2">Hago Curator (하구 큐레이터)</h1>
+                                <p class="text-gray-300 text-lg">복잡한 기술을 가장 쉬운 언어로 해체하고 전달하는 디지털 아키텍트입니다.</p>
+                                <p class="mt-2 text-sm text-gray-400">전문 분야: 정보 아키텍처, 업무 자동화, 정적 사이트 구조화</p>
+                            </div>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-sub pl-3">운영자 인사이트 칼럼</h2>
+                        <div class="space-y-6">
+                `;
+                siteData.columns.forEach(col => {
+                    html += `
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">${col.title}</h3>
+                            <p class="text-sm text-gray-400 mb-4">${col.date}</p>
+                            <p class="text-gray-700">${col.content}</p>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+                container.innerHTML = html;
+            },
+
+            renderCategory(container, catId) {
+                const posts = siteData.posts.filter(p => p.categoryId === catId);
+                const catName = posts.length > 0 ? posts[0].category : '카테고리';
+                
+                let html = `
+                    <h1 class="text-3xl font-bold text-gray-800 mb-8 border-b-2 border-gray-200 pb-4">${catName}</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                `;
+                posts.forEach(post => {
+                    html += `
+                        <a href="#/post/${post.slug}" class="card bg-white rounded-lg overflow-hidden border border-gray-200 block p-6">
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">${post.title}</h3>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2">${post.summary}</p>
+                            <span class="text-xs text-gray-400">${post.date}</span>
+                        </a>
+                    `;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+            },
+
+            renderPage(container, pageId) {
+                const pageData = siteData.pages[pageId];
+                container.innerHTML = `
+                    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-12">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-6 pb-4 border-b border-gray-200">${pageData.title}</h1>
+                        <div class="prose prose-sm md:prose-base text-gray-700">
+                            ${pageData.content.replace(/\n/g, '<br/>')}
+                        </div>
+                    </div>
+                `;
+            }
+        };
+
+        // 앱 초기화 구동
+        window.addEventListener('DOMContentLoaded', () => App.init());
+    </script>
+</body>
+</html>
