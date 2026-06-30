@@ -65,7 +65,7 @@
             siteData.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
         }
         
-        // 2. 최신 인사이트(columns) 최신순(내림차순) 자동 정렬 추가!
+        // 2. 최신 인사이트(columns) 최신순(내림차순) 자동 정렬
         if(siteData.columns) {
             siteData.columns.sort((a, b) => new Date(b.date) - new Date(a.date));
         }
@@ -103,8 +103,8 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 `;
-                // 최신순 6개 글 노출
-                const recentPosts = [...siteData.posts].reverse().slice(0, 6);
+                // 원인 해결: .reverse() 삭제하여 최신순 정렬 유지
+                const recentPosts = [...siteData.posts].slice(0, 6);
                 recentPosts.forEach(post => {
                     html += `
                         <a href="#/post/${post.slug}" class="card bg-white rounded-lg overflow-hidden border border-gray-200 block">
