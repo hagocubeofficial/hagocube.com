@@ -208,3 +208,5 @@ const siteData = {
         }
     }
 };
+// 데이터를 생성하자마자 무조건 최신순(내림차순)으로 자동 정렬시킵니다.
+siteData.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
