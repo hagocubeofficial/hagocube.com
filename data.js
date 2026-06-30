@@ -2,16 +2,6 @@
 const siteData = {
     "posts": [
         {
-            "slug": "test-xxx-ex",
-            "categoryId": "workspace",
-            "category": "워크스페이스",
-            "title": "테스트",
-            "summary": "업로드 해보자.",
-            "author": "Hago Curator",
-            "date": "2026-06-30",
-            "content": "이번에는 성공하나?"
-        },
-        {
             "slug": "notion-database-relation",
             "categoryId": "workspace",
             "category": "워크스페이스",
