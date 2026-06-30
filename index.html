@@ -60,6 +60,9 @@
 
     <script src="data.js"></script>
     <script>
+        // 데이터를 날짜 최신순(내림차순)으로 자동 정렬하는 마법의 코드
+        siteData.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
         document.getElementById('year').textContent = new Date().getFullYear();
 
         const App = {
