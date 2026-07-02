@@ -2,6 +2,16 @@
 const siteData = {
     "posts": [
         {
+            "slug": "rpa-javascript-web-automation",
+            "categoryId": "automation",
+            "category": "자동화툴킷",
+            "title": "RPA 웹 자동화의 한계 돌파: JavaScript 스크립트를 활용한 동적 제어 가이드",
+            "summary": "노코드 기반의 RPA(Robotic Process Automation) 툴이 동적 웹페이지에서 멈추는 고질적인 문제를 JavaScript 스크립트 실행 기능을 통해 완벽하게 해결하는 실무 트러블슈팅 가이드입니다.",
+            "author": "Hago Curator",
+            "date": "2026-07-02",
+            "content": "기업의 반복 업무를 줄여주는 RPA(Robotic Process Automation) 솔루션들은 대부분 '드래그 앤 드롭' 방식의 직관적인 UI를 제공합니다. 마우스 클릭이나 키보드 입력 같은 단순 반복 작업은 쉽게 자동화할 수 있죠. 하지만 실무에서 우리가 마주치는 사내 인트라넷이나 외부 웹사이트들은 그렇게 호락호락하지 않습니다.\n\n클릭할 때마다 ID가 바뀌는 동적 버튼, 화면에 보이지 않으면 눌리지 않는 숨겨진 요소, 복잡한 팝업창 등 노코드(No-code) RPA 액티비티만으로는 절대 해결되지 않는 '자동화의 늪'이 존재합니다. 이때 구원투수로 등장하는 것이 바로 JavaScript입니다.\n\n문제 진단: 왜 RPA는 동적 웹페이지에서 길을 잃는가?\nRPA는 기본적으로 화면에 보이는 객체(Selector나 XPath)를 찾아 행동합니다. 하지만 현대의 웹사이트들은 보안이나 프레임워크 특성상 요소를 렌더링할 때마다 구조가 미세하게 변경됩니다. 어제까지 잘 돌아가던 봇이 오늘 갑자기 \"요소를 찾을 수 없습니다(Element not found)\" 에러를 뱉으며 뻗어버리는 이유가 바로 여기에 있습니다.\n\n해결책: RPA 내장 'Script 실행' 액티비티 활용하기\n대부분의 엔터프라이즈급 RPA 툴(BrityRPA 등)이나 웹 자동화 툴은 브라우저 콘솔에 직접 코드를 쏠 수 있는 'JavaScript 실행' 기능을 제공합니다. 눈에 보이는 껍데기를 클릭하는 대신, 웹페이지의 뼈대(DOM)를 직접 건드리는 방식입니다.\n\n1. 숨겨진 요소 강제 클릭하기:\nRPA가 요소를 찾지 못할 때, JS를 이용해 직접 이벤트를 발생시킬 수 있습니다.\n`document.querySelector('#submit-btn').click();` \n단 한 줄의 코드만 RPA 스크립트 박스에 넣으면, 화면이 로딩되지 않았거나 숨겨져 있어도 강제로 버튼이 작동합니다.\n\n2. 복잡한 테이블 데이터 한 번에 긁어오기:\n게시판의 수십 개 글을 반복문(Loop) 액티비티로 돌리면 속도가 매우 느립니다. 이때 JS로 테이블 데이터를 배열(Array)로 묶어서 한 번에 추출하면, 10분 걸릴 크롤링 작업이 1초 만에 끝납니다. 추출한 JSON 형태의 데이터를 RPA 변수로 받아 엑셀 등에 뿌려주기만 하면 됩니다.\n\n아키텍트의 시선 (Insight)\nRPA를 '마우스 매크로' 수준으로만 사용한다면 반쪽짜리 자동화에 불과합니다. 진정한 프로세스 아키텍트는 노코드(No-code)의 편리함과 로우코드(Low-code)의 강력한 제어력을 상황에 맞게 융합할 줄 알아야 합니다. JavaScript라는 무기를 장착하여 멈추지 않는 무결점 자동화 워크플로우를 설계해 보십시오."
+        },
+        {
             "slug": "advanced-prompt-engineering-framework",
             "categoryId": "automation",
             "category": "자동화툴킷",
