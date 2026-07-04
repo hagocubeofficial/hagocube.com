@@ -2,6 +2,16 @@
 const siteData = {
     "posts": [
         {
+            "slug": "make-com-notion-news-curation-pipeline",
+            "categoryId": "automation",
+            "category": "자동화툴킷",
+            "title": "노션(Notion) 자동화의 끝판왕: Make.com으로 나만의 뉴스 큐레이션 봇 만들기",
+            "summary": "정보의 바다에서 허우적대는 것은 이제 그만! Zapier보다 강력하고 유연한 노코드 툴 Make.com을 이용해 관심 있는 업계 뉴스를 노션 데이터베이스로 자동 수집하는 나만의 '두 번째 뇌(Second Brain)' 구축법을 알아봅니다.",
+            "author": "Hago Curator",
+            "date": "2026-07-04",
+            "content": "현대 직장인과 크리에이터들의 가장 큰 스트레스는 '정보의 과잉'입니다. 매일 쏟아지는 수십 개의 기사, 블로그, 트렌드 리포트를 즐겨찾기에 쌓아두지만 정작 필요할 때는 찾지 못해 구글을 다시 검색합니다. '수집'은 하지만 '정리'되지 않는 죽은 데이터의 늪입니다.\n\n이 문제를 완벽하게 해결하려면 정보가 스스로 걸어 들어와 예쁘게 정리되는 '자동화 파이프라인'을 구축해야 합니다. 오늘은 글로벌 노코드(No-code) 자동화의 양대 산맥 중 하나인 Make.com(구 Integromat)을 활용하여, RSS 피드를 내 노션(Notion)으로 꽂아 넣는 큐레이션 봇을 만들어 보겠습니다.\n\n1단계: 노션(Notion) 수신 데이터베이스 만들기\n정보가 저장될 창고를 만듭니다. 노션에서 '/데이터베이스'를 입력해 표를 생성합니다.\n속성(Property)은 다음과 같이 세팅합니다.\n- 제목 (Title) : 기사 제목\n- URL (URL) : 기사 원문 링크\n- 발행일 (Date) : 기사 작성일\n\n2단계: Make.com 시나리오(Scenario) 설계\nMake.com에 무료 가입 후 'Create a new scenario'를 클릭합니다.\n첫 번째 모듈(Trigger)로 'RSS'를 검색하여 선택하고 'Watch RSS feed items'를 클릭합니다. 내가 구독하고 싶은 뉴스나 블로그의 RSS 링크 주소를 복사해 넣습니다. (예: 특정 IT 매체의 RSS 링크).\n\n두 번째 모듈(Action)로 'Notion'을 검색하고 'Create a Database Item'을 선택합니다. \n\n3단계: 데이터 맵핑 및 트러블슈팅\n노션 모듈 설정 창에서 앞서 만든 노션 데이터베이스를 연결해야 합니다. 이때 RSS에서 받아온 데이터(Title, URL, Date)를 노션의 각 칸에 드래그 앤 드롭으로 짝지어줍니다.\n\n[실무 트러블슈팅] Make.com에서 내 노션 데이터베이스가 안 보일 때!\n자피어(Zapier)와 마찬가지로 여기서 가장 많은 오류가 발생합니다. 노션은 철저한 보안을 위해 외부 앱의 접근을 기본적으로 막아둡니다.\n해결책: 노션으로 돌아가 생성한 데이터베이스 페이지 우측 상단의 점 3개(···)를 누릅니다. [연결(Connections)] 메뉴로 들어가 검색창에 'Make'를 검색한 뒤 추가(Confirm) 버튼을 눌러 접근 권한을 부여해야 합니다. 방문을 열어주어야 봇이 데이터를 배달할 수 있습니다.\n\n아키텍트의 시선 (Insight)\n'지식 창업'과 '콘텐츠 큐레이션'의 핵심은 남들보다 많은 정보를 보는 것이 아니라, 수많은 정보 중 나에게 필요한 것만 걸러내는 '필터링 시스템'을 갖추는 것에 있습니다. Make.com과 Notion을 연결하는 이 파이프라인은 당신을 단순한 정보 소비자가 아닌, 거대한 데이터의 흐름을 통제하고 가공하는 지식 아키텍트로 만들어 줄 것입니다."
+        },
+        {
             "slug": "google-sheets-gmail-automation-apps-script",
             "categoryId": "workspace",
             "category": "워크스페이스",
