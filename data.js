@@ -2,6 +2,16 @@
 const siteData = {
     "posts": [
         {
+            "slug": "slack-chatgpt-api-make-automation",
+            "categoryId": "automation",
+            "category": "자동화툴킷",
+            "title": "슬랙(Slack)과 챗GPT API 연동: Make.com으로 우리 팀만의 똑똑한 AI 비서 봇 구축하기",
+            "summary": "단순한 사내 메신저인 슬랙을 지능형 업무 공간으로 탈바꿈시킵니다. 노코드 툴 Make.com과 OpenAI API를 연결하여, 질문에 답하고 회의 내용을 요약해 주는 나만의 커스텀 AI 슬랙봇을 코딩 없이 구축하는 방법을 소개합니다.",
+            "author": "Hago Curator",
+            "date": "2026-07-06",
+            "content": "\"챗GPT에 물어보고 슬랙에 복붙해서 공유해 줘.\" 현대 사무실에서 매일 반복되는 비효율적인 풍경입니다. 툴과 툴 사이를 오가며 창을 전환하는 행위(Context Switching)는 직장인의 집중력을 산산조각 냅니다. 만약 슬랙 대화창 안에서 특정 봇을 태그(@AI봇)하여 질문했을 때, 봇이 스스로 챗GPT의 두뇌를 빌려와 즉시 답변을 달아준다면 어떨까요?\n\n비싼 기업용 AI 솔루션을 도입할 필요가 없습니다. Make.com이라는 노코드 자동화 파이프라인과 OpenAI의 API 키(Key)만 있다면, 단 15분 만에 우리 팀만의 전천후 AI 비서를 슬랙에 심을 수 있습니다.\n\n1단계: 슬랙 앱(App) 생성 및 봇 권한 부여\n가장 먼저 슬랙 API 페이지(api.slack.com)에 접속해 새로운 앱을 생성합니다. \n[OAuth & Permissions] 메뉴에서 이 봇이 슬랙 채널의 메시지를 읽고(channels:history), 메시지를 쓸 수 있는(chat:write) 권한(Scope)을 부여합니다. 그리고 워크스페이스에 설치(Install)하여 'xoxb-'로 시작하는 봇 토큰(Token)을 발급받습니다.\n\n2단계: Make.com을 통한 파이프라인(시나리오) 설계\nMake.com에 접속해 새 시나리오를 만듭니다.\n1. Trigger (방아쇠): 'Slack' 모듈을 선택하고 'New Event(새로운 이벤트)'를 고릅니다. 누군가 슬랙 채널에서 봇을 멘션(Mention)할 때 작동하도록 설정합니다.\n2. Action 1 (AI 두뇌): 'OpenAI(ChatGPT)' 모듈을 연결하고 'Create a Completion'을 선택합니다. 슬랙에서 들어온 질문 텍스트를 챗GPT의 프롬프트로 던져줍니다.\n3. Action 2 (답변 출력): 다시 'Slack' 모듈을 연결해 'Create a Message'를 선택합니다. 챗GPT가 생성한 답변 데이터를 원래 질문이 올라왔던 슬랙 채널(혹은 스레드)로 쏘아주도록 매핑(Mapping)합니다.\n\n실무 트러블슈팅: AI 봇이 자기 혼자 무한 대화를 나눕니다! (무한 루프 에러)\n초보자들이 100% 겪는 대참사입니다. 봇이 답변을 슬랙에 달았는데, 그 답변을 '새로운 메시지'로 인식해서 봇이 또 챗GPT에 물어보고 다시 답변을 다는 무한 루프(Infinite Loop)에 빠지는 현상입니다.\n해결책: Make.com의 첫 번째 슬랙 모듈과 두 번째 OpenAI 모듈 사이에 '필터(Filter)'를 걸어야 합니다. 조건식에 `[User ID] Does not equal [봇의 User ID]`를 설정하십시오. 즉, \"메시지를 쓴 사람이 '봇 자신'이 아닐 때만 다음 단계로 넘어가라\"는 로직을 강제해야 무한 루프 폭주를 막을 수 있습니다.\n\n아키텍트의 시선 (Insight)\n이 시스템을 구축하는 순간, 슬랙은 단순한 채팅 앱에서 '지능형 에이전트(Intelligent Agent)'가 상주하는 거대한 플랫폼으로 진화합니다. API 통신과 필터링 로직을 결합하는 이 작은 성공 경험은, 향후 회의록 요약, 고객 CS 자동 응답 등 기업의 핵심 비즈니스 프로세스를 AI로 혁신하는 강력한 뼈대가 될 것입니다."
+        },
+        {
             "slug": "webhook-automation-troubleshooting-zapier-make",
             "categoryId": "automation",
             "category": "자동화툴킷",
