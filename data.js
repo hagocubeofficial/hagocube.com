@@ -4,7 +4,7 @@ const siteData = {
         {
             "slug": "github-actions-json-build-error-troubleshooting",
             "categoryId": "automation",
-            "category": "자동화 툴킷",
+            "category": "자동화툴킷",
             "title": "[Troubleshooting] GitHub Actions 활용: 정적 웹사이트 JSON 데이터 자동화 빌드 에러 (Exit code 1) 완벽 해결 가이드",
             "summary": "GitHub Actions로 정적 사이트(JSON) 자동 배포 시 발생하는 'Exit Code 1' 에러의 근본 원인을 해체하고, 권한 제어 및 의존성 캐싱이 적용된 무중단 CI/CD 구축 및 트러블슈팅 방법을 제공합니다.",
             "author": "Hago Curator",
