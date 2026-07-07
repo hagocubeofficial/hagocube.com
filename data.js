@@ -2,6 +2,16 @@
 const siteData = {
     "posts": [
         {
+            "slug": "github-actions-json-build-error-troubleshooting",
+            "categoryId": "automation",
+            "category": "자동화 툴킷",
+            "title": "[Troubleshooting] GitHub Actions 활용: 정적 웹사이트 JSON 데이터 자동화 빌드 에러 (Exit code 1) 완벽 해결 가이드",
+            "summary": "GitHub Actions로 정적 사이트(JSON) 자동 배포 시 발생하는 'Exit Code 1' 에러의 근본 원인을 해체하고, 권한 제어 및 의존성 캐싱이 적용된 무중단 CI/CD 구축 및 트러블슈팅 방법을 제공합니다.",
+            "author": "Hago Curator",
+            "date": "2026-07-07",
+            "content": "\"어제까진 잘 되던 자동 배포가 왜 갑자기 Exit Code 1을 뱉어내는 거지?\"\nGitHub Actions를 활용해 정적 웹사이트(Static Site)의 JSON 데이터를 동적으로 관리하려는 수많은 B2B 실무자들이 겪는 치명적인 페인포인트(Pain-point)다. \n\n0.1초 미만의 극강의 로딩 속도를 자랑하는 정적 웹사이트의 구조를 유지하면서도, 데이터 업데이트 시마다 수동으로 Git Commit과 Push를 반복하는 것은 극심한 리소스 낭비다. 이를 해결하기 위해 CI/CD 파이프라인을 구축하지만, 환경 변수 누락이나 권한 설정 오류로 인해 빌드는 번번이 실패한다. 본 가이드에서는 이러한 자동화 에러의 근본 원인을 해체하고, 무결성을 보장하는 완벽한 자동 배포 파이프라인 구축 방법을 단호하게 제시한다.\n\n1단계: 핵심 에러 원인 분석 (권한 부족 및 의존성 캐싱 실패)\nGitHub Actions 빌드 실패의 90%는 코드가 아닌 '환경 설정'의 부재에서 발생한다. \n첫째, GITHUB_TOKEN 권한 부족이다. 워크플로우가 리포지토리에 변경된 JSON 파일(data.js)을 푸시(Push)하려고 할 때, 쓰기 권한(Write Permission)이 명시되어 있지 않으면 403 Forbidden 에러와 함께 빌드가 멈춘다.\n둘째, 의존성(Dependencies) 로드 실패다. 파이썬(Python) 환경에서 requests 라이브러리를 사용해 외부 API를 호출할 때, 패키지가 제대로 설치 및 캐싱되지 않아 모듈을 찾을 수 없는 에러가 발생한다.\n\n2단계: 무결성 보장 Python 데이터 파싱 스크립트 구축\n에러를 원천 차단하려면 데이터 수집 스크립트가 독립적으로 완벽하게 실행되어야 한다. 리포지토리 루트에 update_data.py를 생성하고 아래 로직을 구성하라. 외부 API에서 데이터를 불러와 정적 사이트에 즉시 로드 가능한 JSON(data.js) 형태로 가공하는 핵심 뼈대다.\n\n(파이썬 스크립트 작성 시 주의사항: 반드시 try-except 구문을 활용해 외부 API 호출 실패 시에도 빈 배열을 반환하도록 처리해야 전체 파이프라인이 크래시되는 것을 막을 수 있다.)\n\n3단계: 권한 제어 및 캐싱이 적용된 완벽한 YAML 작성\n가장 핵심이 되는 CI/CD 설정이다. .github/workflows/auto_update.yml 파일을 생성하라. \n\n핵심 트러블슈팅: YAML 파일 상단에 반드시 아래 코드를 삽입해야 한다.\npermissions:\n  contents: write\n\n이 세 줄의 코드가 없다면 아무리 파이썬 코드를 완벽하게 짜도 GitHub 봇은 리포지토리에 데이터를 쓸 수 없다. 또한, actions/setup-python@v4 스텝에서 cache: 'pip' 옵션을 활성화하여 매 빌드 시 발생하는 패키지 설치 시간을 단축하고 서버 부하를 줄여야 한다.\n\n아키텍트의 시선 (Insight)\n정적 사이트의 한계를 극복하는 것은 결국 '어떻게 데이터를 가볍고 빠르게 주입할 것인가'에 달려 있다. GitHub Actions와 JSON 동적 파싱의 결합은 서버 비용을 0원으로 유지하면서도 엔터프라이즈급의 무중단 데이터 업데이트를 가능하게 하는 현존 최고의 B2B 웹 아키텍처 솔루션이다. 이 트러블슈팅을 당신의 리포지토리에 즉시 적용하고 야근을 끝내라."
+        },
+        {
             "slug": "slack-chatgpt-api-make-automation",
             "categoryId": "automation",
             "category": "자동화툴킷",
