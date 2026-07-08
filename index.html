@@ -28,14 +28,14 @@
 
     <header class="bg-main text-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#/" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+            <a href="/" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
                 <span class="text-sub text-3xl">⬡</span> HagoCube
             </a>
             <nav class="hidden md:flex gap-6 font-medium">
-                <a href="#/category/workspace" class="hover:text-yellow-400">워크스페이스</a>
-                <a href="#/category/automation" class="hover:text-yellow-400">자동화툴킷</a>
-                <a href="#/author" class="hover:text-yellow-400">운영자 칼럼</a>
-                <a href="#/about" class="hover:text-yellow-400">소개</a>
+                <a href="/category/workspace" class="hover:text-yellow-400">워크스페이스</a>
+                <a href="/category/automation" class="hover:text-yellow-400">자동화툴킷</a>
+                <a href="/author" class="hover:text-yellow-400">운영자 칼럼</a>
+                <a href="/about" class="hover:text-yellow-400">소개</a>
             </nav>
         </div>
     </header>
@@ -55,9 +55,9 @@
                 <p>문의: support@hagocube.com</p>
             </div>
             <div class="flex gap-4">
-                <a href="#/privacy" class="hover:text-white">개인정보처리방침</a>
-                <a href="#/terms" class="hover:text-white">이용약관</a>
-                <a href="#/disclaimer" class="hover:text-white">면책고지</a>
+                <a href="/privacy" class="hover:text-white">개인정보처리방침</a>
+                <a href="/terms" class="hover:text-white">이용약관</a>
+                <a href="/disclaimer" class="hover:text-white">면책고지</a>
             </div>
         </div>
         <div class="container mx-auto px-4 mt-6 text-center border-t border-gray-700 pt-6">
@@ -90,11 +90,11 @@
                 mainArea.innerHTML = ''; // 초기화
                 window.scrollTo(0, 0);
 
-                if (hash === '#/') this.renderHome(mainArea);
-                else if (hash.startsWith('#/post/')) this.renderPost(mainArea, hash.replace('#/post/', ''));
-                else if (hash.startsWith('#/category/')) this.renderCategory(mainArea, hash.replace('#/category/', ''));
-                else if (hash === '#/author') this.renderAuthor(mainArea);
-                else if (['#/privacy', '#/terms', '#/disclaimer', '#/about'].includes(hash)) this.renderPage(mainArea, hash.replace('#/', ''));
+                if (hash === '/') this.renderHome(mainArea);
+                else if (hash.startsWith('/post/')) this.renderPost(mainArea, hash.replace('/post/', ''));
+                else if (hash.startsWith('/category/')) this.renderCategory(mainArea, hash.replace('/category/', ''));
+                else if (hash === '/author') this.renderAuthor(mainArea);
+                else if (['/privacy', '/terms', '/disclaimer', '/about'].includes(hash)) this.renderPage(mainArea, hash.replace('/', ''));
                 else mainArea.innerHTML = '<div class="text-center py-20"><h2 class="text-3xl font-bold">404 - 문서를 찾을 수 없습니다.</h2></div>';
             },
             
@@ -106,7 +106,7 @@
                     </div>
                     <div class="flex justify-between items-end border-b-2 border-gray-200 pb-2 mb-6">
                         <h2 class="text-2xl font-bold text-gray-800">최신 인사이트</h2>
-                        <a href="#/author" class="text-sm font-bold text-sub hover:underline">Hago Curator 칼럼 보기 &rarr;</a>
+                        <a href="/author" class="text-sm font-bold text-sub hover:underline">Hago Curator 칼럼 보기 &rarr;</a>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 `;
@@ -114,7 +114,7 @@
                 const recentPosts = [...siteData.posts].slice(0, 6);
                 recentPosts.forEach(post => {
                     html += `
-                        <a href="#/post/${post.slug}" class="card bg-white rounded-lg overflow-hidden border border-gray-200 block">
+                        <a href="/post/${post.slug}" class="card bg-white rounded-lg overflow-hidden border border-gray-200 block">
                             <div class="p-6">
                                 <span class="badge bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded mb-3 inline-block">${post.category}</span>
                                 <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">${post.title}</h3>
@@ -141,13 +141,13 @@
                     <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="bg-gray-50 border-b border-gray-100 p-8 text-center">
                             <div class="mb-4">
-                                <a href="#/category/${post.categoryId}" class="text-sm font-bold text-sub tracking-widest uppercase hover:underline">${post.category}</a>
+                                <a href="/category/${post.categoryId}" class="text-sm font-bold text-sub tracking-widest uppercase hover:underline">${post.category}</a>
                             </div>
                             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">${post.title}</h1>
                             <p class="text-gray-500 font-medium">${post.summary}</p>
                             <div class="mt-6 text-sm text-gray-400 flex items-center justify-center gap-4">
                                 <span>작성일: ${post.date}</span> | 
-                                <a href="#/author" class="hover:text-sub font-bold text-gray-600">✍️ 에디터: ${post.author}</a>
+                                <a href="/author" class="hover:text-sub font-bold text-gray-600">✍️ 에디터: ${post.author}</a>
                             </div>
                         </div>
                         <div class="p-8 md:p-12 prose prose-lg max-w-none text-gray-700 leading-relaxed">
@@ -198,7 +198,7 @@
                 `;
                 posts.forEach(post => {
                     html += `
-                        <a href="#/post/${post.slug}" class="card bg-white rounded-lg overflow-hidden border border-gray-200 block p-6">
+                        <a href="/post/${post.slug}" class="card bg-white rounded-lg overflow-hidden border border-gray-200 block p-6">
                             <h3 class="text-lg font-bold text-gray-900 mb-2">${post.title}</h3>
                             <p class="text-gray-600 text-sm mb-4 line-clamp-2">${post.summary}</p>
                             <span class="text-xs text-gray-400">${post.date}</span>
