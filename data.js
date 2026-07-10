@@ -2,16 +2,6 @@
 const siteData = {
     "posts": [
         {
-            "slug": "zapier-make-infinite-loop-error-troubleshooting",
-            "categoryId": "automation",
-            "category": "자동화툴킷",
-            "title": "[Troubleshooting] Zapier & Make.com 자동화의 덫: 무한 루프(Infinite Loop) 에러 완벽 방어 아키텍처",
-            "summary": "노코드(No-code) 자동화 툴 사용 시 요금 폭탄을 유발하는 '무한 루프(Infinite Loop)' 에러의 발생 원리를 해체하고, 필터(Filter) 및 상태 기록(State Tracking)을 활용한 완벽한 방어 로직을 제시합니다.",
-            "author": "Hago Curator",
-            "date": "2026-07-10",
-            "content": "<p>\"주말 사이 자피어(Zapier) 태스크(Task)가 5만 번이나 실행되어 월 요금을 다 소진해버렸습니다.\"</p>\n\n<p>슬랙(Slack), 지메일(Gmail), 노션(Notion)을 연결하며 업무 해방을 꿈꾸던 B2B 실무자들이 가장 흔하게, 그리고 가장 뼈아프게 겪는 재앙이 바로 <strong>무한 루프(Infinite Loop) 에러</strong>다. 코딩 지식 없이 직관적인 UI로 파이프라인을 짤 수 있다는 노코드(No-code) 툴의 장점은, 역설적으로 논리적 오류를 잡아내는 '안전장치'가 부재하다는 치명적인 약점이 되기도 한다.</p>\n\n<p>본 가이드에서는 시스템을 붕괴시키고 예산을 갉아먹는 무한 루프의 발생 메커니즘을 해체하고, 어떠한 상황에서도 시스템이 스스로 폭주를 차단하는 2단계 방어 아키텍처를 단호하게 제시한다.</p>\n\n<h2>1단계: 핵심 원인 분석 (트리거와 액션의 꼬리물기)</h2>\n<p>무한 루프는 '결과'가 다시 '원인'이 될 때 발생한다. 가장 대표적인 실무 사례는 양방향 동기화(Two-way Sync)를 시도할 때다. \n예를 들어, [스프레드시트 A에 새 행이 추가되면(Trigger)] -> [스프레드시트 B에 복사하라(Action)]는 자동화를 만들었다고 가정하자. 만약 실무자가 B에도 데이터가 추가되면 A로 보내는 역방향 자동화를 하나 더 만든다면? A에 데이터가 들어오는 순간 B로 가고, B에 들어온 데이터는 다시 A를 트리거 시켜 영원히 데이터를 핑퐁 치게 된다. 단 10분 만에 1만 건의 태스크가 증발한다.</p>\n<p>또한, 슬랙(Slack)에서 봇이 멘션되었을 때 답변을 다는 자동화에서도, 봇이 단 '답변' 자체를 '새로운 멘션'으로 인식하여 봇 혼자 끝말잇기를 하는 참사도 자주 발생한다.</p>\n\n<h2>2단계: 1차 방어선 - 식별자 필터링(Identity Filtering)</h2>\n<p>가장 즉각적이고 필수적인 방어책은 파이프라인의 첫 번째 단계(Trigger) 바로 다음에 <strong>'필터(Filter)'</strong> 모듈을 배치하는 것이다.</p>\n<p>슬랙 봇의 폭주를 막으려면, 필터 조건에 <code>[User ID] Does not exactly match [Bot's User ID]</code>를 설정하라. 즉, 메시지를 작성한 주체가 봇 자신일 경우 프로세스를 즉각 중단(Halt)시키는 것이다. 이베일 자동 회신 루프를 막을 때도 <code>[From Email] Does not contain [내 이메일 주소]</code>를 필터로 걸어, 내가 보낸 메일에 시스템이 다시 반응하는 것을 원천 차단해야 한다.</p>\n\n<h2>3단계: 2차 방어선 - 상태 기반 플래그(State Flagging) 도입</h2>\n<p>양방향 동기화나 복잡한 DB 연동 시에는 필터만으로는 부족하다. 데이터 자체에 '이 데이터는 자동화가 이미 처리한 데이터다'라는 꼬리표(Flag)를 달아주어야 한다. 이를 상태 추적(State Tracking)이라 한다.</p>\n<p>데이터베이스(노션, 구글 시트 등)에 <strong>'Sync_Status'</strong>라는 체크박스(또는 텍스트 열)를 추가하라. \n자동화 파이프라인의 마지막 액션(Action) 단계에서, 데이터 복사가 완료된 후 원본 데이터의 'Sync_Status' 값을 'Done(완료)'으로 업데이트하도록 설정한다. 그리고 가장 첫 번째 트리거의 조건이나 필터에 <code>[Sync_Status] Does not exactly match [Done]</code>을 걸어둔다. 이렇게 하면 시스템은 꼬리표가 없는 순수한 새 데이터에만 반응하며, 완벽한 단방향 통제를 유지할 수 있다.</p>\n\n<h3>아키텍트의 시선 (Insight)</h3>\n<p>자동화 시스템은 당신의 명령을 의심 없이 수행하는 충직한 기계다. 폭주의 책임은 기계가 아니라 제어 로직을 설계하지 않은 아키텍트에게 있다. Zapier나 Make.com에서 태스크를 켜기(Turn On) 전, 반드시 플로우 차트 상에서 '이 액션이 다시 트리거를 건드릴 가능성이 단 1%라도 있는가?'를 반문하라. 상태 기반 플래그(State Flagging)를 도입하는 순간, 당신의 파이프라인은 장난감에서 엔터프라이즈급 시스템으로 도약할 것이다.</p>"
-        },
-        {
             "slug": "google-sheets-looker-studio-dashboard-troubleshooting",
             "categoryId": "workspace",
             "category": "워크스페이스",
